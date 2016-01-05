@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour {
 	void Update () 
 	{
 		if (PlayerScript.gameRunning) {
-			//Rotate torch towards mouse
+			//Rotate enemy towards player
 			Vector3 playerPos = GameObject.FindGameObjectWithTag ("Player").gameObject.transform.position;
 			if (playerPos.x < this.gameObject.transform.position.x) {
 				this.transform.eulerAngles = new Vector3 (0, 270, 0);
@@ -62,23 +62,23 @@ public class EnemyScript : MonoBehaviour {
 
 	void OnTriggerStay(Collider c)
 	{
-		if(c.CompareTag ("Beam"))
+		if(c.CompareTag ("Beam")) //If the trigger is torch beam
 		{
-			if(c.gameObject.GetComponentInParent<PlayerScript>().isFocusing == true)
+			if(c.gameObject.GetComponentInParent<PlayerScript>().isFocusing == true) //If beam is focused
 			{
-				anim.SetFloat ("WalkSpeed", focusedSpeed);
-				health-= 1*Time.deltaTime;
+				anim.SetFloat ("WalkSpeed", focusedSpeed); //Slow down
+				health-= 1*Time.deltaTime; //Take away health
 			}
 			else{
-				anim.SetFloat ("WalkSpeed", inBeamSpeed);
+				anim.SetFloat ("WalkSpeed", inBeamSpeed); //Slow down a bit
 			}
 		}
 	}
 
 	void OnTriggerExit(Collider c)
 	{
-		if (c.CompareTag("Beam")) {
-			anim.SetFloat ("WalkSpeed", normalSpeed);
+		if (c.CompareTag("Beam")) { //If the trigger is the beam
+			anim.SetFloat ("WalkSpeed", normalSpeed); //Return speed to normal
 		}
 	}
 }
