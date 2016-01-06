@@ -91,11 +91,11 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .967999995
+        second: 0.968
       data:
         first:
           name: _Parallax
-        second: .0199999996
+        second: 0.02
       data:
         first:
           name: _ZWrite
@@ -131,21 +131,21 @@ Material:
       data:
         first:
           name: _InvFade
-        second: .119999997
+        second: 0.12
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: .617647052, g: .617647052, b: .617647052, a: 1}
+        second: {r: 0.61764705, g: 0.61764705, b: 0.61764705, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .301470578, g: .301470578, b: .301470578, a: 0}
+        second: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 0}
       data:
         first:
           name: _TintColor
-        second: {r: 1, g: 1, b: 1, a: .352999985}
+        second: {r: 1, g: 1, b: 1, a: 0.3137255}
       data:
         first:
           name: _EmisColor
-        second: {r: .200000003, g: .200000003, b: .200000003, a: 0}
+        second: {r: 0.2, g: 0.2, b: 0.2, a: 0}

@@ -6,7 +6,11 @@ public class PlayerScript : MonoBehaviour {
 
 	public static bool gameRunning = true;
 
-	public float speed;
+	private float speed;
+	public float runSpeed;
+	public float walkSpeed;
+	public float batteryDrainRate;
+	public float batteryRechargeRate;
 	CharacterController controller;
 
 	//Torch turning variables
@@ -14,7 +18,8 @@ public class PlayerScript : MonoBehaviour {
 	const float rotateSpeed = 10;
 	public GameObject torch;
 	//Player data
-	private int health = 10;
+	private int maxHealth = 3;
+	private int health;
 	private double battery = 100;
 	//Torch Focusing Variables
 	public bool isFocusing;
@@ -31,16 +36,15 @@ public class PlayerScript : MonoBehaviour {
 
 	//Text objects TODO: MOVE THESE TO A UI CLASS
 	public GameObject scoreText;
-	public GameObject MirrorText;
-	public GameObject BatteryText;
-	public GameObject HealthText;
-
-	public GameObject loseText;
-	public GameObject winText;
-	public GameObject winText1;
+	public GameObject batteryText;
+	public GameObject healthText;
 
 	// Use this for initialization
 	void Start () {
+		health = maxHealth;
+
+		speed = runSpeed;
+
 		controller = this.GetComponent<CharacterController> (); //Get character controller
 		isFocusing = false; //Set is focusing to false
 
@@ -51,14 +55,16 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		int score = (int)(transform.position.x*2);
 		scoreText.GetComponent<Text> ().text = "Score: " + score; //Update score text
-		BatteryText.GetComponent<Text> ().text = "Battery: " + (int)battery + "%"; //Update battery text
-		HealthText.GetComponent<Text> ().text = "Health: " + health + "/10"; //Update health text
+		batteryText.GetComponent<Text> ().text = "Battery: " + (int)battery + "%"; //Update battery text
+		healthText.GetComponent<Text> ().text = "Health: " + health + "/" + maxHealth; //Update health text
 
 		if (gameRunning) {
 			
 			if (health == 0) {
 				gameRunning = false;
-				loseText.GetComponent<Text>().enabled = true;
+
+
+				//TODO: LOSING
 			}
 			//Calculate Velocity
 			Vector3 velocity = transform.right * speed;
@@ -83,27 +89,28 @@ public class PlayerScript : MonoBehaviour {
 				if (Input.GetMouseButtonDown (0) && battery > 0) {
 					torchClick.Play ();
 					torchHum.Play ();
+					speed = walkSpeed;
 					isFocusing = true;
 				}
 
 				if (Input.GetMouseButtonUp (0) || battery <= 0) {
 					torchClick.Play ();
 					torchHum.Stop ();
+					speed = runSpeed;
 					isFocusing = false;
 				}
 
 				if (isFocusing && battery > 0) {
 					spotlight.intensity = focInt;
 					GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = brightMat;
-					battery -= 4 * Time.deltaTime;
+					battery -= batteryDrainRate * Time.deltaTime;
 				}
 
 				if (!isFocusing && battery < 100) {
 					//Battery recharges when not being focused, and player is moving
 					spotlight.intensity = dimInt;
 					GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = dimMat;
-					if (Input.GetAxis ("Horizontal") != 0)
-						battery += 2 * Time.deltaTime;
+					battery += batteryRechargeRate * Time.deltaTime;
 				}
 			}
 		}

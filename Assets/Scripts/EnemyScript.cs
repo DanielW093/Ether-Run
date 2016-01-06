@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour {
 	public int rotateSpeed = 10;
 	public int aggroDistance = 15;
 
-	private double health = 1.5;
+	private double health = 10;
 
 	public float normalSpeed;
 	public float inBeamSpeed;
@@ -67,7 +67,7 @@ public class EnemyScript : MonoBehaviour {
 			if(c.gameObject.GetComponentInParent<PlayerScript>().isFocusing == true) //If beam is focused
 			{
 				anim.SetFloat ("WalkSpeed", focusedSpeed); //Slow down
-				health-= 1*Time.deltaTime; //Take away health
+				health-= 16*Time.deltaTime; //Take away health
 			}
 			else{
 				anim.SetFloat ("WalkSpeed", inBeamSpeed); //Slow down a bit
