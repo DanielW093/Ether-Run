@@ -7,6 +7,10 @@ public class ButtonClass : MonoBehaviour {
     public Canvas CanvasObject;
     private bool fadeActive = false;
 
+    //Audio sources
+    public AudioSource startButtonAudio;
+    public AudioSource OtherButtonAudio;
+
     void Start()
     {
         CanvasObject.GetComponent<Canvas>().enabled = false;
@@ -29,19 +33,23 @@ public class ButtonClass : MonoBehaviour {
 	{
 		switch (button) 
 		{
-		case "PlayButton": 
+		case "PlayButton":
+            startButtonAudio.Play();
 			Debug.Log("playButtonPressed");
             fadeActive = true;
 			break;
 
         case "CreditButton":
             Debug.Log("CreditButtonPressed");
+            startButtonAudio.Stop();
+            OtherButtonAudio.Play();
             fadeActive = false;
             CanvasObject.GetComponent<Canvas>().enabled = true;
             break;
 
 
         case "BackButton":
+            OtherButtonAudio.Play();
             CanvasObject.GetComponent<Canvas>().enabled = false;
             break;
 		
