@@ -9,24 +9,36 @@ public class SplashScreen : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(Example());
+		StartCoroutine(StartSplashscreen());
 	}
 	
 	
 	void Update()
 	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			StartCoroutine(LoadMenu());
+		}
+
 		//GameObject test;
 		//test = new GameObject("Test");
 		//test.transform.position = new Vector2(x, y);
 		//print(test.transform.position.x);
 	}
 	
-	IEnumerator Example()
+	IEnumerator StartSplashscreen()
 	{
 		yield return new WaitForSeconds(5);
-        float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fade>().BeginFade(1);
-        yield return new WaitForSeconds(fadeTime);
-        Application.LoadLevel("test");
+        //Application.LoadLevel("test");
+		StartCoroutine(LoadMenu());
+	}
+
+
+	IEnumerator LoadMenu()
+	{
+		float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fade>().BeginFade(1);
+		yield return new WaitForSeconds(fadeTime);
 		Application.LoadLevel("MainMenu");
+		StopAllCoroutines();
 	}
 }

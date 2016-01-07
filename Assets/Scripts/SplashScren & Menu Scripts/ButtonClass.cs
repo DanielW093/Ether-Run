@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class ButtonClass : MonoBehaviour {
 
-    public Canvas CanvasObject;
+	public Canvas MainMenuCanvas;
+    public Canvas CreditsCanvas;
     private bool fadeActive = false;
 
     //Audio sources
@@ -13,7 +14,8 @@ public class ButtonClass : MonoBehaviour {
 
     void Start()
     {
-        CanvasObject.GetComponent<Canvas>().enabled = false;
+		MainMenuCanvas.GetComponent<Canvas>().enabled = true;
+        CreditsCanvas.GetComponent<Canvas>().enabled = false;
     }
     void Update()
     {
@@ -44,13 +46,15 @@ public class ButtonClass : MonoBehaviour {
             startButtonAudio.Stop();
             OtherButtonAudio.Play();
             fadeActive = false;
-            CanvasObject.GetComponent<Canvas>().enabled = true;
+			MainMenuCanvas.GetComponent<Canvas>().enabled = false;
+            CreditsCanvas.GetComponent<Canvas>().enabled = true;
             break;
 
 
         case "BackButton":
             OtherButtonAudio.Play();
-            CanvasObject.GetComponent<Canvas>().enabled = false;
+			MainMenuCanvas.GetComponent<Canvas>().enabled = true;
+            CreditsCanvas.GetComponent<Canvas>().enabled = false;
             break;
 		
 
