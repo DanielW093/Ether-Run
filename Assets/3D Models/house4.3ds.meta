@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: d7f442dad0f3ab94dae42040aebacf27
+timeCreated: 1450098664
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: base
+    100002: door
+    100004: doornob
+    100006: floor
+    100008: grass
+    100010: //RootNode
+    100012: metal
+    100014: railing
+    100016: roof
+    100018: sealing
+    100020: sealing1
+    100022: sealing2
+    100024: stairs
+    100026: stuco
+    100028: window_fra
+    100030: window_gla
+    400000: base
+    400002: door
+    400004: doornob
+    400006: floor
+    400008: grass
+    400010: //RootNode
+    400012: metal
+    400014: railing
+    400016: roof
+    400018: sealing
+    400020: sealing1
+    400022: sealing2
+    400024: stairs
+    400026: stuco
+    400028: window_fra
+    400030: window_gla
+    2300000: base
+    2300002: door
+    2300004: doornob
+    2300006: floor
+    2300008: grass
+    2300010: metal
+    2300012: railing
+    2300014: roof
+    2300016: sealing
+    2300018: sealing1
+    2300020: sealing2
+    2300022: stairs
+    2300024: stuco
+    2300026: window_fra
+    2300028: window_gla
+    3300000: base
+    3300002: door
+    3300004: doornob
+    3300006: floor
+    3300008: grass
+    3300010: metal
+    3300012: railing
+    3300014: roof
+    3300016: sealing
+    3300018: sealing1
+    3300020: sealing2
+    3300022: stairs
+    3300024: stuco
+    3300026: window_fra
+    3300028: window_gla
+    4300000: base
+    4300002: door
+    4300004: doornob
+    4300006: floor
+    4300008: grass
+    4300010: metal
+    4300012: railing
+    4300014: roof
+    4300016: sealing
+    4300018: sealing1
+    4300020: sealing2
+    4300022: stairs
+    4300024: stuco
+    4300026: window_fra
+    4300028: window_gla
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
