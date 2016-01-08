@@ -30,7 +30,7 @@ public class EnemySpawning : MonoBehaviour {
 
 				spawnX = Random.Range (rightMin, rightMax);
 						
-				Vector3 spawnPos = new Vector3(spawnX, ((int)(player.transform.position.y)) + 0.1f, 0f);
+				Vector3 spawnPos = new Vector3(spawnX, ((int)(player.transform.position.y) + 0.035f), 0f);
 				enemies[i] = (GameObject)Instantiate (ethereal,spawnPos, Quaternion.identity);
 			}
 		}

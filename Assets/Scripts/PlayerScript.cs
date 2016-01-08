@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 	const float rotateSpeed = 10;
 	public GameObject torch;
 	//Player data
-	private int maxHealth = 3;
+	public int maxHealth;
 	private int health;
 	private double battery = 100;
 	//Torch Focusing Variables
@@ -34,10 +34,13 @@ public class PlayerScript : MonoBehaviour {
 	public AudioSource torchHum;
 	public AudioSource pickup;
 
-	//Text objects TODO: MOVE THESE TO A UI CLASS
+	//Animation
+	public Animator playerAnim;
+
+	//UI Objects
+	public Image[] healthbars = new Image[5];
+	public Image[] batterybars = new Image[10];
 	public GameObject scoreText;
-	public GameObject batteryText;
-	public GameObject healthText;
 
 	// Use this for initialization
 	void Start () {
@@ -55,8 +58,32 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		int score = (int)(transform.position.x*2);
 		scoreText.GetComponent<Text> ().text = "Score: " + score; //Update score text
-		batteryText.GetComponent<Text> ().text = "Battery: " + (int)battery + "%"; //Update battery text
-		healthText.GetComponent<Text> ().text = "Health: " + health + "/" + maxHealth; //Update health text
+
+		//Update healthbar
+		for(int i = 0; i < healthbars.Length; i++)
+		{
+			if(i+1 > health)
+				healthbars[i].enabled = false;
+			else
+				healthbars[i].enabled = true;
+		}
+
+		//Update battery bar
+		int totalBars = (int)battery/10; //How many bars should be visible?
+
+		for(int i = 0; i < batterybars.Length; i++) //Make necessary bars not visible
+		{
+			if(i > totalBars)
+				batterybars[i].enabled = false;
+			else
+				batterybars[i].enabled = true;
+		}
+		if(totalBars < 10) //Modify the alpha of the active bar
+		{
+			Color newCol = batterybars[totalBars].color;
+			newCol.a = (float)((battery - (totalBars*10))/10);
+			batterybars[totalBars].color = newCol;
+		}
 
 		if (gameRunning) {
 			
@@ -78,7 +105,10 @@ public class PlayerScript : MonoBehaviour {
 			Vector3 targetDir = tTarget - torch.transform.position;
 			float step = rotateSpeed * Time.deltaTime;
 			Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
+
 			torch.transform.rotation = Quaternion.LookRotation (newDir);
+
+
 
 			//Mobile input
 			if(Application.isMobilePlatform)
@@ -90,6 +120,7 @@ public class PlayerScript : MonoBehaviour {
 					torchClick.Play ();
 					torchHum.Play ();
 					speed = walkSpeed;
+					playerAnim.speed = 0.75f;
 					isFocusing = true;
 				}
 
@@ -97,6 +128,7 @@ public class PlayerScript : MonoBehaviour {
 					torchClick.Play ();
 					torchHum.Stop ();
 					speed = runSpeed;
+					playerAnim.speed = 1.0f;
 					isFocusing = false;
 				}
 

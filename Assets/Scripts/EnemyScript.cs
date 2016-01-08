@@ -9,6 +9,8 @@ public class EnemyScript : MonoBehaviour {
 
 	private double health = 10;
 
+	private float moveSpeed;
+
 	public float normalSpeed;
 	public float inBeamSpeed;
 	public float focusedSpeed;
@@ -17,8 +19,9 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = this.GetComponent<Animator> ();
-		anim.SetFloat ("WalkSpeed", normalSpeed);
+		anim = transform.Find("BadGuyWalking").GetComponent<Animator> ();
+		anim.speed = normalSpeed;
+		moveSpeed = normalSpeed;
 	}
 	
 	// Update is called once per frame
@@ -36,13 +39,12 @@ public class EnemyScript : MonoBehaviour {
 			float dist = Vector3.Distance (playerPos, this.gameObject.transform.position);
 
 			if (dist <= aggroDistance) {
-				anim.SetBool ("Walk", true);
-				anim.SetBool ("Idle", false);
-			} else {
-				
-				anim.SetBool ("Walk", false);
-				anim.SetBool ("Idle", true);
-			}
+				Vector3 newPos = transform.position;
+
+				newPos += moveSpeed * transform.forward * Time.deltaTime;
+
+				transform.position = newPos;
+			} 
 
 			Vector3 reAlign = transform.position;
 			reAlign.z = 0f;
@@ -66,11 +68,13 @@ public class EnemyScript : MonoBehaviour {
 		{
 			if(c.gameObject.GetComponentInParent<PlayerScript>().isFocusing == true) //If beam is focused
 			{
-				anim.SetFloat ("WalkSpeed", focusedSpeed); //Slow down
+				anim.speed = focusedSpeed; //Slow down
+				moveSpeed = focusedSpeed;
 				health-= 16*Time.deltaTime; //Take away health
 			}
 			else{
-				anim.SetFloat ("WalkSpeed", inBeamSpeed); //Slow down a bit
+				anim.speed = inBeamSpeed; //Slow down a bit
+				moveSpeed = inBeamSpeed;
 			}
 		}
 	}
@@ -78,7 +82,8 @@ public class EnemyScript : MonoBehaviour {
 	void OnTriggerExit(Collider c)
 	{
 		if (c.CompareTag("Beam")) { //If the trigger is the beam
-			anim.SetFloat ("WalkSpeed", normalSpeed); //Return speed to normal
+			anim.speed = normalSpeed; //Return speed to normal
+			moveSpeed = normalSpeed;
 		}
 	}
 }

@@ -10,9 +10,8 @@ public class WorldGenerator : MonoBehaviour {
 	public GameObject room2;
 	public GameObject room3;
 	public GameObject door;
-	public GameObject wall;
 
-	public int roomSize = 5;
+	public float roomSize = 7.49f;
 	public int maxRooms = 5;
 	public int wallSpawnChance = 50;
 
@@ -58,27 +57,17 @@ public class WorldGenerator : MonoBehaviour {
 				break;
 			}
 
-			if(x == 0)
-			{
-				//Spawn room, spawn wall on left
-				GameObject roomObj = (GameObject)Instantiate(room,roomPosition,Quaternion.identity);
-				rooms.Add(roomObj);
-				GameObject wallObj = (GameObject)Instantiate(wall,roomPosition,Quaternion.identity);
-				wallObj.transform.parent = roomObj.transform;
-			}
-			else
-			{
-				//Spawn room
-				GameObject roomObj = (GameObject)Instantiate(room,roomPosition,Quaternion.identity);
-				rooms.Add(roomObj);
+
+			//Spawn room
+			GameObject roomObj = (GameObject)Instantiate(room,roomPosition,Quaternion.identity);
+			rooms.Add(roomObj);
 				
-				if(spawnWall <= wallSpawnChance) //If random chance to spawn wall succeeds
-				{
-					//Door Spawn with rotation
-					GameObject doorObj = (GameObject)Instantiate (door, roomPosition,Quaternion.identity);
-					doorObj.transform.Rotate(new Vector3(0,1,0),180f);
-					doorObj.transform.parent =  roomObj.transform;
-				}
+			if(spawnWall <= wallSpawnChance) //If random chance to spawn wall succeeds
+			{
+				//Door Spawn with rotation
+				GameObject doorObj = (GameObject)Instantiate (door, roomPosition,Quaternion.identity);
+				doorObj.transform.Rotate(new Vector3(0,1,0),180f);
+				doorObj.transform.parent =  roomObj.transform;
 			}
 
 			roomPosition.x += roomSize;
