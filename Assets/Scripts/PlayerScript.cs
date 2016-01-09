@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour {
 	public float walkSpeed;
 	public float batteryDrainRate;
 	public float batteryRechargeRate;
+	public float buttonRechargeAmount;
 	CharacterController controller;
 
 	//Torch turning variables
@@ -41,6 +42,8 @@ public class PlayerScript : MonoBehaviour {
 	public Image[] healthbars = new Image[5];
 	public Image[] batterybars = new Image[10];
 	public GameObject scoreText;
+	public Toggle flashlightToggle;
+	public Button rechargeButton;
 
 	// Use this for initialization
 	void Start () {
@@ -56,6 +59,8 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		//Update score
 		int score = (int)(transform.position.x*2);
 		scoreText.GetComponent<Text> ().text = "Score: " + score; //Update score text
 
@@ -76,7 +81,12 @@ public class PlayerScript : MonoBehaviour {
 			if(i > totalBars)
 				batterybars[i].enabled = false;
 			else
+			{
+				Color newCol = batterybars[i].color;
+				newCol.a = 1.0f;
+				batterybars[i].color = newCol;
 				batterybars[i].enabled = true;
+			}
 		}
 		if(totalBars < 10) //Modify the alpha of the active bar
 		{
@@ -85,65 +95,103 @@ public class PlayerScript : MonoBehaviour {
 			batterybars[totalBars].color = newCol;
 		}
 
+		//Is the player dead?
+		if (health == 0) {
+			gameRunning = false;
+
+			//TODO: LOSING
+			//TODO: DISABLE ALL BUTTONS
+			//TODO: DESTROY PLAYER AND ALL ENEMIES
+		}
+
 		if (gameRunning) {
-			
-			if (health == 0) {
-				gameRunning = false;
 
+			//Make sure battery is within acceptable parameters
+			if(battery > 100)
+				battery = 100;
+			if(battery < 0)
+				battery = 0;
 
-				//TODO: LOSING
-			}
 			//Calculate Velocity
 			Vector3 velocity = transform.right * speed;
 			//Move Player
 			controller.Move (velocity * Time.deltaTime);
-					
-			//Rotate torch towards mouse or touch
-			Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10);
-			tTarget = Camera.main.ScreenToWorldPoint (mousePos);
-			tTarget.z = torch.transform.position.z;
-			Vector3 targetDir = tTarget - torch.transform.position;
-			float step = rotateSpeed * Time.deltaTime;
-			Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
-
-			torch.transform.rotation = Quaternion.LookRotation (newDir);
-
-
 
 			//Mobile input
 			if(Application.isMobilePlatform)
 			{
+				Touch[] touches = Input.touches;
 
+				foreach (Touch t in touches)
+				{
+					Vector3 touchPos = new Vector3(t.position.x, t.position.y, 10.0f);
+					tTarget = Camera.main.ScreenToWorldPoint (touchPos);
+					if(tTarget.x > transform.position.x)
+					{
+						tTarget.z = transform.position.z;
+						Vector3 targetDir = tTarget - torch.transform.position;
+						float step = rotateSpeed * Time.deltaTime;
+						Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
+
+						torch.transform.rotation = Quaternion.LookRotation (newDir);
+
+						break;
+					}
+				}
+
+				//Controlling torch on mobile
+				if(flashlightToggle.isOn && !isFocusing && battery > 0)
+				{
+					ToggleTorch(true);
+				}
+				if(battery <= 0 && isFocusing)
+				{
+					flashlightToggle.isOn = false;
+				}
+				if(!flashlightToggle.isOn && isFocusing)
+				{
+					ToggleTorch(false);
+				}
 			}
 			else{
+				//Rotate torch towards mouse or touch
+				Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10);
+				if(mousePos.x > Screen.width/2)
+				{
+					tTarget = Camera.main.ScreenToWorldPoint (mousePos);
+					tTarget.z = transform.position.z;
+					Vector3 targetDir = tTarget - torch.transform.position;
+					float step = rotateSpeed * Time.deltaTime;
+					Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
+
+					torch.transform.rotation = Quaternion.LookRotation (newDir);
+				}
+
 				if (Input.GetMouseButtonDown (0) && battery > 0) {
-					torchClick.Play ();
-					torchHum.Play ();
-					speed = walkSpeed;
-					playerAnim.speed = 0.75f;
-					isFocusing = true;
+					ToggleTorch(true);
 				}
 
 				if (Input.GetMouseButtonUp (0) || battery <= 0) {
-					torchClick.Play ();
-					torchHum.Stop ();
-					speed = runSpeed;
-					playerAnim.speed = 1.0f;
-					isFocusing = false;
+					ToggleTorch(false);
 				}
+			}
 
-				if (isFocusing && battery > 0) {
-					spotlight.intensity = focInt;
-					GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = brightMat;
-					battery -= batteryDrainRate * Time.deltaTime;
-				}
+			if (isFocusing && battery > 0) {
+				spotlight.intensity = focInt;
+				GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = brightMat;
+				battery -= batteryDrainRate * Time.deltaTime;
+			}
 
-				if (!isFocusing && battery < 100) {
-					//Battery recharges when not being focused, and player is moving
-					spotlight.intensity = dimInt;
-					GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = dimMat;
-					battery += batteryRechargeRate * Time.deltaTime;
-				}
+			if (!isFocusing && battery < 100) {
+				//Battery recharges when not being focused, and player is moving
+				rechargeButton.interactable = true;
+				spotlight.intensity = dimInt;
+				GameObject.FindGameObjectWithTag ("Beam").GetComponent<MeshRenderer> ().material = dimMat;
+				battery += batteryRechargeRate * Time.deltaTime;
+			}
+			else
+			{
+				rechargeButton.interactable = false;
 			}
 		}
 	}
@@ -156,5 +204,30 @@ public class PlayerScript : MonoBehaviour {
 			health--;
 			Debug.Log (health);
 		}
+	}
+
+	void ToggleTorch(bool on)
+	{
+		torchClick.Play();
+
+		if(on)
+		{
+			torchHum.Play();
+			speed = walkSpeed;
+			playerAnim.speed = 0.75f;
+			isFocusing = true;
+		}
+		else
+		{
+			torchHum.Stop ();
+			speed = runSpeed;
+			playerAnim.speed = 1.0f;
+			isFocusing = false;
+		}
+	}
+
+	public void RechargeButton()
+	{
+		battery += buttonRechargeAmount;
 	}
 }

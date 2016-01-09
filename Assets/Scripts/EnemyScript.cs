@@ -58,7 +58,8 @@ public class EnemyScript : MonoBehaviour {
 	public void Destroy()
 	{
 		GameObject.Find ("deathNoise").GetComponent<AudioSource> ().Play ();
-		Instantiate (deathParticle, transform.position, transform.rotation);
+		Vector3 partPos = transform.position; partPos.y += 0.5f;
+		Instantiate (deathParticle, partPos, transform.rotation);
 		Destroy (transform.gameObject);
 	}
 
