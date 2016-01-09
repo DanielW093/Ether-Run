@@ -833,6 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ethereal: {fileID: 109230, guid: 3a8c562141e070c4fa6f6d039401e25e, type: 2}
+  etherealCeil: {fileID: 106780, guid: 40211467246aa974f8f621957a56f612, type: 2}
   minSpawnDist: 10
   maxSpawnDist: 25
 --- !u!1 &897540857
@@ -1434,10 +1435,6 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 673329477}
-    - target: {fileID: 2045758, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
       propertyPath: flashlightToggle
       value: 
@@ -1446,29 +1443,17 @@ Prefab:
       propertyPath: rechargeButton
       value: 
       objectReference: {fileID: 717240717}
-    - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: batteryRechargeRate
-      value: 2
+    - target: {fileID: 6514268, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+      propertyPath: m_Size.y
+      value: -0.99591225
       objectReference: {fileID: 0}
-    - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: buttonRechargeAmount
-      value: 2.5
+    - target: {fileID: 6514268, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+      propertyPath: m_Center.y
+      value: 2.2199762
       objectReference: {fileID: 0}
-    - target: {fileID: 2045758, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: field of view
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 426898, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 426898, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
-      propertyPath: batteryDrainRate
-      value: 10
+    - target: {fileID: 6514268, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
@@ -1574,7 +1559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1485699587
 GameObject:
   m_ObjectHideFlags: 0
