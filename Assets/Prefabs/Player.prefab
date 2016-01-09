@@ -639,7 +639,6 @@ GameObject:
   - 23: {fileID: 2364270}
   - 114: {fileID: 11431872}
   - 143: {fileID: 14386652}
-  - 65: {fileID: 6514268}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1045,7 +1044,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 0.71, z: -20}
+  m_LocalPosition: {x: 0, y: 0.71, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 428584}
@@ -1655,18 +1654,6 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 8b6f09198a07a844aa486bf029bdc985, type: 2}
---- !u!65 &6514268
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.1009016, z: 1}
-  m_Center: {x: 0, y: 4.3442745, z: 0}
 --- !u!81 &8197412
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1725,7 +1712,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1747,7 +1734,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!82 &8252668
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1966,9 +1953,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runSpeed: 1.5
   walkSpeed: 0.75
-  batteryDrainRate: 10
-  batteryRechargeRate: 2
-  buttonRechargeAmount: 2.5
+  batteryDrainRate: 6
+  batteryRechargeRate: 3
   torch: {fileID: 115336}
   maxHealth: 5
   isFocusing: 0
@@ -1996,8 +1982,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   scoreText: {fileID: 0}
-  flashlightToggle: {fileID: 0}
-  rechargeButton: {fileID: 0}
 --- !u!124 &12417366
 Behaviour:
   m_ObjectHideFlags: 1

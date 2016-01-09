@@ -6,8 +6,6 @@ public class EnemySpawning : MonoBehaviour {
 	//Enemy Variables
 	private GameObject[] enemies = new GameObject[5];
 	public GameObject ethereal;
-    public GameObject etherealCeil;
-
 
 	private GameObject player;
 
@@ -33,19 +31,7 @@ public class EnemySpawning : MonoBehaviour {
 				spawnX = Random.Range (rightMin, rightMax);
 						
 				Vector3 spawnPos = new Vector3(spawnX, ((int)(player.transform.position.y) + 0.035f), 0f);
-                int mts = Random.Range(0,2);
-                switch (mts)
-                {
-                    case 0:
-                        enemies[i] = (GameObject)Instantiate(ethereal, spawnPos, Quaternion.identity);
-                        break;
-
-                    case 1:
-                        spawnPos.y = 1.45f;
-                        enemies[i] = (GameObject)Instantiate(etherealCeil, spawnPos, Quaternion.identity);
-                        break;
-                }
-
+				enemies[i] = (GameObject)Instantiate (ethereal,spawnPos, Quaternion.identity);
 			}
 		}
 	}
