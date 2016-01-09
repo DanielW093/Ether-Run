@@ -179,7 +179,7 @@ public class PlayerScript : MonoBehaviour {
 			else{
 				//Rotate torch towards mouse or touch
 				Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10);
-				if(mousePos.x > Screen.width/2)
+				if(mousePos.x > Screen.width/3)
 				{
 					tTarget = Camera.main.ScreenToWorldPoint (mousePos);
 					tTarget.z = transform.position.z;
