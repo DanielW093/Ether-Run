@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour {
 	CharacterController controller;
 
 	//Torch turning variables
+	private Vector3 torchAimTouch;
 	private Vector3 tTarget;
 	const float rotateSpeed = 10;
 	public GameObject torch;
@@ -55,6 +56,8 @@ public class PlayerScript : MonoBehaviour {
 		isFocusing = false; //Set is focusing to false
 
 		spotlight = gameObject.GetComponentInChildren<Light> (); //Get the spotlight
+
+		torchAimTouch = new Vector3(Screen.width/2, Screen.height/2, 10.0f);
 	}
 	
 	// Update is called once per frame
@@ -122,10 +125,32 @@ public class PlayerScript : MonoBehaviour {
 			{
 				Touch[] touches = Input.touches;
 
-				foreach (Touch t in touches)
+				if(touches.Length > 0)
 				{
-					Vector3 touchPos = new Vector3(t.position.x, t.position.y, 10.0f);
-					tTarget = Camera.main.ScreenToWorldPoint (touchPos);
+					foreach (Touch t in touches)
+					{
+						Vector3 touchPos = new Vector3(t.position.x, t.position.y, 10.0f);
+
+						tTarget = Camera.main.ScreenToWorldPoint (touchPos);
+
+						if(tTarget.x > transform.position.x)
+						{
+							torchAimTouch = touchPos;
+							tTarget.z = transform.position.z;
+							Vector3 targetDir = tTarget - torch.transform.position;
+							float step = rotateSpeed * Time.deltaTime;
+							Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
+
+							torch.transform.rotation = Quaternion.LookRotation (newDir);
+
+							break;
+						}
+					}
+				}
+				else
+				{
+					tTarget = Camera.main.ScreenToWorldPoint (torchAimTouch);
+
 					if(tTarget.x > transform.position.x)
 					{
 						tTarget.z = transform.position.z;
@@ -134,8 +159,6 @@ public class PlayerScript : MonoBehaviour {
 						Vector3 newDir = Vector3.RotateTowards (torch.transform.forward, targetDir, step, 0.0F);
 
 						torch.transform.rotation = Quaternion.LookRotation (newDir);
-
-						break;
 					}
 				}
 
@@ -200,6 +223,7 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if (c.CompareTag ("Enemy"))
 		{
+			Handheld.Vibrate();
 			c.gameObject.GetComponent<EnemyScript>().Destroy ();
 			health--;
 			Debug.Log (health);
@@ -228,6 +252,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public void RechargeButton()
 	{
-		battery += buttonRechargeAmount;
+		if(gameRunning)
+			battery += buttonRechargeAmount;
 	}
 }
