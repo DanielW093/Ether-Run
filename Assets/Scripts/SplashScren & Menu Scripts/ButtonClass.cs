@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ButtonClass : MonoBehaviour {
 
 	public Canvas MainMenuCanvas;
+	public Canvas SettingsCanvas;
     public Canvas CreditsCanvas;
     private bool fadeActive = false;
 
@@ -15,6 +16,7 @@ public class ButtonClass : MonoBehaviour {
     void Start()
     {
 		MainMenuCanvas.GetComponent<Canvas>().enabled = true;
+		SettingsCanvas.GetComponent<Canvas>().enabled = false;
         CreditsCanvas.GetComponent<Canvas>().enabled = false;
     }
     void Update()
@@ -43,17 +45,20 @@ public class ButtonClass : MonoBehaviour {
 
         case "CreditButton":
             Debug.Log("CreditButtonPressed");
-            startButtonAudio.Stop();
             OtherButtonAudio.Play();
-            fadeActive = false;
 			MainMenuCanvas.GetComponent<Canvas>().enabled = false;
             CreditsCanvas.GetComponent<Canvas>().enabled = true;
             break;
-
-
+		case "SettingsButton":
+			Debug.Log("Settings Button Pressed");
+			OtherButtonAudio.Play();
+			MainMenuCanvas.GetComponent<Canvas>().enabled = false;
+			SettingsCanvas.GetComponent<Canvas>().enabled = true;
+			break;
         case "BackButton":
             OtherButtonAudio.Play();
 			MainMenuCanvas.GetComponent<Canvas>().enabled = true;
+			SettingsCanvas.GetComponent<Canvas>().enabled = false;
             CreditsCanvas.GetComponent<Canvas>().enabled = false;
             break;
 		

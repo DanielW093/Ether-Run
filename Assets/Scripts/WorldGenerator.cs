@@ -30,8 +30,11 @@ public class WorldGenerator : MonoBehaviour {
 
 	void Update()
 	{
-		if (player.transform.position.x >= (roomPosition.x - (middleRoom * roomSize))) {
-			UpdateWorld();
+		if(PlayerScript.gameRunning)
+		{
+			if (player.transform.position.x >= (roomPosition.x - (middleRoom * roomSize))) {
+				UpdateWorld();
+			}
 		}
 	}
 

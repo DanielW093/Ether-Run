@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyScript : MonoBehaviour {
 
+	int type;
 	Animator anim;
 	public int rotateSpeed = 10;
 	public int aggroDistance = 15;
@@ -19,7 +20,17 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = transform.Find("BadGuyWalking").GetComponent<Animator> ();
+		if(transform.Find("BadGuyWalking") != null)
+		{
+			type = 0;
+			anim = transform.Find("BadGuyWalking").GetComponent<Animator> ();
+		}
+		else
+		{
+			type = 1;
+			anim = transform.Find("SpiderWalkCycle").GetComponent<Animator>();
+		}
+
 		anim.speed = normalSpeed;
 		moveSpeed = normalSpeed;
 	}
@@ -27,6 +38,12 @@ public class EnemyScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if(PlayerScript.gameRunning && !anim.enabled)
+			anim.enabled = true;
+
+		if(!PlayerScript.gameRunning && anim.enabled)
+			anim.enabled = false;
+
 		if (PlayerScript.gameRunning) {
 			//Rotate enemy towards player
 			Vector3 playerPos = GameObject.FindGameObjectWithTag ("Player").gameObject.transform.position;

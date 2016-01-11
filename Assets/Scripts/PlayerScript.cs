@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
@@ -35,6 +36,11 @@ public class PlayerScript : MonoBehaviour {
 	public AudioSource torchClick;
 	public AudioSource torchHum;
 	public AudioSource pickup;
+	//UI
+	public Canvas pauseCanvas;
+	public Canvas quitCanvas;
+	public Canvas tutorialCanvas;
+	public Toggle dontShowAgain;
 
 	//Animation
 	public Animator playerAnim;
@@ -48,6 +54,20 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		pauseCanvas.enabled = false;
+		quitCanvas.enabled = false;
+
+		if(GameManager.DisplayTutorial)
+		{
+			gameRunning = false;
+			tutorialCanvas.enabled = true;
+		}
+		else
+		{
+			gameRunning = true;
+			tutorialCanvas.enabled = false;
+		}
+
 		health = maxHealth;
 
 		speed = runSpeed;
@@ -62,6 +82,23 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		//TODO:
+		if(!gameRunning && playerAnim.enabled)
+		{
+			flashlightToggle.interactable = false;
+			rechargeButton.interactable = false;
+
+			playerAnim.enabled = false;
+		}
+
+		if(gameRunning && !playerAnim.enabled)
+		{
+			flashlightToggle.interactable = true;
+			rechargeButton.interactable = true;
+
+			playerAnim.enabled = true;
+		}
 
 		//Update score
 		int score = (int)(transform.position.x*2);
@@ -103,11 +140,17 @@ public class PlayerScript : MonoBehaviour {
 			gameRunning = false;
 
 			//TODO: LOSING
-			//TODO: DISABLE ALL BUTTONS
-			//TODO: DESTROY PLAYER AND ALL ENEMIES
+			GameObject.Find("EnemyManager").GetComponent<EnemySpawning>().DestroyAll();
+			Camera.main.transform.SetParent(null);
+			Destroy(gameObject);
 		}
 
 		if (gameRunning) {
+
+			if(Input.GetKeyDown(KeyCode.Escape))
+			{
+				PauseGame();
+			}
 
 			//Make sure battery is within acceptable parameters
 			if(battery > 100)
@@ -223,7 +266,8 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if (c.CompareTag ("Enemy"))
 		{
-			Handheld.Vibrate();
+			if(Application.isMobilePlatform)
+				Handheld.Vibrate();
 			c.gameObject.GetComponent<EnemyScript>().Destroy ();
 			health--;
 			Debug.Log (health);
@@ -254,5 +298,47 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if(gameRunning)
 			battery += buttonRechargeAmount;
+	}
+
+	public void DismissTutorialButton()
+	{
+		if(dontShowAgain.isOn)
+			GameManager.DisplayTutorial = false;
+		else
+			GameManager.DisplayTutorial = true;
+
+		GameManager.UpdateSettings();
+
+		tutorialCanvas.enabled = false;
+		gameRunning = true;
+	}
+
+	public void PauseGame()
+	{
+		gameRunning = false;
+		pauseCanvas.enabled = true;
+	}
+
+	public void ResumeGame()
+	{
+		pauseCanvas.enabled = false;
+		gameRunning = true;
+	}
+
+	public void QuitButton()
+	{
+		pauseCanvas.enabled = false;
+		quitCanvas.enabled = true;
+	}
+
+	public void CancelQuit()
+	{
+		quitCanvas.enabled = false;
+		pauseCanvas.enabled = true;
+	}
+
+	public void QuitGame()
+	{
+		SceneManager.LoadScene("MainMenu");
 	}
 }
