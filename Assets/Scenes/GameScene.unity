@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.125
+  m_FogDensity: 0.1
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2955,8 +2955,58 @@ Prefab:
       propertyPath: quitCanvas
       value: 
       objectReference: {fileID: 1676488011}
+    - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+      propertyPath: dimInt
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431872, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+      propertyPath: focInt
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b00cfb1d9c9a88489dcc33211545cb5, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1263090327
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487882, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ce82e0534a4835449a2f6b99d2d6a192, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1267905348
 GameObject:

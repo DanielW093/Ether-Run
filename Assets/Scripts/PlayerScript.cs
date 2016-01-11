@@ -27,8 +27,8 @@ public class PlayerScript : MonoBehaviour {
 	//Torch Focusing Variables
 	public bool isFocusing;
 	private Light spotlight;
-	const float dimInt = 0.6f;
-	const float focInt = 1.2f;
+	public float dimInt;
+	public float focInt;
 	//Torch Materials
 	public Material dimMat;
 	public Material brightMat;
