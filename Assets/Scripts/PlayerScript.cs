@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour {
 
 	public static bool gameRunning = true;
 
+	public static bool ceilingEnemiesEnabled;
+
 	private float speed;
 	public float runSpeed;
 	public float walkSpeed;
@@ -43,6 +45,7 @@ public class PlayerScript : MonoBehaviour {
 	public Canvas tutorialCanvas;
 	public Toggle dontShowAgain;
 	public Canvas deathCanvas;
+	public Canvas levelChangeCanvas;
 	public Text finalScoreText;
 
 	//Animation
@@ -57,9 +60,12 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		ceilingEnemiesEnabled = false;
+
 		pauseCanvas.enabled = false;
 		quitCanvas.enabled = false;
 		deathCanvas.enabled = false;
+		levelChangeCanvas.enabled = false;
 
 		if(GameManager.DisplayTutorial)
 		{
@@ -154,6 +160,11 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		if (gameRunning) {
+
+			if(score > 80 && !ceilingEnemiesEnabled)
+			{
+				StartCoroutine(ActivateCeilingCrawlers());
+			}
 
 			if(Input.GetKeyDown(KeyCode.Escape))
 			{
@@ -359,5 +370,13 @@ public class PlayerScript : MonoBehaviour {
 	{
 		OtherButtonAudio.Play();
 		SceneManager.LoadScene("MainMenu");
+	}
+
+	IEnumerator ActivateCeilingCrawlers()
+	{
+		ceilingEnemiesEnabled = true;
+		levelChangeCanvas.enabled = true;
+		yield return new WaitForSeconds(2);
+		levelChangeCanvas.enabled = false;
 	}
 }
