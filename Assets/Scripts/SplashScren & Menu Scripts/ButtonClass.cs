@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ public class ButtonClass : MonoBehaviour {
     {
         float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fade>().BeginFade(1);
         yield return new WaitForSeconds(fadeTime);
-        Application.LoadLevel("GameScene");
+		SceneManager.LoadScene("GameScene");
     }
 
 	public void getButton(string button)
