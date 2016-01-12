@@ -41,6 +41,8 @@ public class PlayerScript : MonoBehaviour {
 	public Canvas quitCanvas;
 	public Canvas tutorialCanvas;
 	public Toggle dontShowAgain;
+	public Canvas deathCanvas;
+	public Text finalScoreText;
 
 	//Animation
 	public Animator playerAnim;
@@ -56,6 +58,7 @@ public class PlayerScript : MonoBehaviour {
 	void Start () {
 		pauseCanvas.enabled = false;
 		quitCanvas.enabled = false;
+		deathCanvas.enabled = false;
 
 		if(GameManager.DisplayTutorial)
 		{
@@ -83,7 +86,6 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//TODO:
 		if(!gameRunning && playerAnim.enabled)
 		{
 			flashlightToggle.interactable = false;
@@ -101,7 +103,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		//Update score
-		int score = (int)(transform.position.x*2);
+		int score = (int)(transform.position.x*4);
 		scoreText.GetComponent<Text> ().text = "Score: " + score; //Update score text
 
 		//Update healthbar
@@ -139,10 +141,15 @@ public class PlayerScript : MonoBehaviour {
 		if (health == 0) {
 			gameRunning = false;
 
-			//TODO: LOSING
 			GameObject.Find("EnemyManager").GetComponent<EnemySpawning>().DestroyAll();
 			Camera.main.transform.SetParent(null);
-			Destroy(gameObject);
+			Vector3 newPos = transform.position;
+			newPos.y += 10.0f;
+			transform.position = newPos;
+
+			MainMenu.tempScore.SetScore(score);
+			finalScoreText.text = score.ToString();
+			deathCanvas.enabled = true;
 		}
 
 		if (gameRunning) {
@@ -329,6 +336,11 @@ public class PlayerScript : MonoBehaviour {
 	{
 		pauseCanvas.enabled = false;
 		quitCanvas.enabled = true;
+	}
+
+	public void DeadQuitButton()
+	{
+		SceneManager.LoadScene("MainMenu");
 	}
 
 	public void CancelQuit()

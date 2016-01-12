@@ -17,14 +17,24 @@ public class CameraSwitch : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-        timer = timerLimit;
+		if(MainMenu.tempScore.GetScore() == 0)
+		{
+	        timer = timerLimit;
 
-        camera1.GetComponent<Camera>().enabled = true;
-		camera1.GetComponent<AudioListener>().enabled = true;
-        camera2.GetComponent<Camera>().enabled = false;
-		camera2.GetComponent<AudioListener>().enabled = false;
-        CanvasObject.GetComponent<Canvas>().enabled = false;
-        Active1 = true;
+	        camera1.GetComponent<Camera>().enabled = true;
+			camera1.GetComponent<AudioListener>().enabled = true;
+	        camera2.GetComponent<Camera>().enabled = false;
+			camera2.GetComponent<AudioListener>().enabled = false;
+	        CanvasObject.GetComponent<Canvas>().enabled = false;
+	        Active1 = true;
+		}
+		else
+		{
+			camera1.GetComponent<Camera>().enabled = false;
+			camera1.GetComponent<AudioListener>().enabled = false;
+			camera2.GetComponent<Camera>().enabled = true;
+			camera2.GetComponent<AudioListener>().enabled = true;
+		}
 	
 	}
 	
@@ -71,7 +81,10 @@ public class CameraSwitch : MonoBehaviour {
 
 	void DisplayMenu()
 	{
-		CanvasObject.GetComponent<Canvas>().enabled = true;
+		if(MainMenu.tempScore.GetScore() == 0)
+		{
+			CanvasObject.GetComponent<Canvas>().enabled = true;
+		}
 		menuDisplayed = true;
 	}
 }
