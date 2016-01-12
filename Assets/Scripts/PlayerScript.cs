@@ -36,6 +36,7 @@ public class PlayerScript : MonoBehaviour {
 	public AudioSource torchClick;
 	public AudioSource torchHum;
 	public AudioSource pickup;
+	public AudioSource OtherButtonAudio;
 	//UI
 	public Canvas pauseCanvas;
 	public Canvas quitCanvas;
@@ -309,6 +310,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public void DismissTutorialButton()
 	{
+		OtherButtonAudio.Play();
 		if(dontShowAgain.isOn)
 			GameManager.DisplayTutorial = false;
 		else
@@ -328,29 +330,34 @@ public class PlayerScript : MonoBehaviour {
 
 	public void ResumeGame()
 	{
+		OtherButtonAudio.Play();
 		pauseCanvas.enabled = false;
 		gameRunning = true;
 	}
 
 	public void QuitButton()
 	{
+		OtherButtonAudio.Play();
 		pauseCanvas.enabled = false;
 		quitCanvas.enabled = true;
 	}
 
 	public void DeadQuitButton()
 	{
+		OtherButtonAudio.Play();
 		SceneManager.LoadScene("MainMenu");
 	}
 
 	public void CancelQuit()
 	{
+		OtherButtonAudio.Play();
 		quitCanvas.enabled = false;
 		pauseCanvas.enabled = true;
 	}
 
 	public void QuitGame()
 	{
+		OtherButtonAudio.Play();
 		SceneManager.LoadScene("MainMenu");
 	}
 }
