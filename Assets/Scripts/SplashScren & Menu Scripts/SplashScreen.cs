@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SplashScreen : MonoBehaviour {
@@ -38,7 +39,7 @@ public class SplashScreen : MonoBehaviour {
 	{
 		float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fade>().BeginFade(1);
 		yield return new WaitForSeconds(fadeTime);
-		Application.LoadLevel("MainMenu");
+		SceneManager.LoadScene("MainMenu");
 		StopAllCoroutines();
 	}
 }
