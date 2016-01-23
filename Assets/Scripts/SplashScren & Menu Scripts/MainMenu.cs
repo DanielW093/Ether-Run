@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour {
 	public Canvas NewHighscoreCanvas;
 
 	public Text scoreText;
+	public Text versionText;
 
 	public Toggle AudioToggle;
 	public Toggle TutorialToggle;
@@ -57,6 +58,7 @@ public class MainMenu : MonoBehaviour {
 
 		AudioToggle.isOn = GameManager.PlayAudio;
 		TutorialToggle.isOn = GameManager.DisplayTutorial;
+		versionText.text = "Version " + Application.version;
 	}
 	
 	// Update is called once per frame
