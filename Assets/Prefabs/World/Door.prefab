@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 438326}
   - 33: {fileID: 3367758}
   - 23: {fileID: 2315290}
+  - 65: {fileID: 6562308}
   m_Layer: 0
   m_Name: WallDoor
   m_TagString: Untagged
@@ -237,6 +238,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130654}
   m_Mesh: {fileID: 4300000, guid: 26788d0b9c4267348ac2a37a4e56caa3, type: 3}
+--- !u!65 &6562308
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109026}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.150436, y: 18.435396, z: -0.4}
+  m_Center: {x: -0.00000047683707, y: 9.019454, z: 0.00095649046}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

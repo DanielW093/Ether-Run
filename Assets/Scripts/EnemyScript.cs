@@ -68,15 +68,20 @@ public class EnemyScript : MonoBehaviour {
 			transform.position = reAlign;
 
 			if (health <= 0)
-				Destroy ();
+				Kill ();
 		}
 	}
 
-	public void Destroy()
+	public void Kill()
 	{
 		GameObject.Find ("deathNoise").GetComponent<AudioSource> ().Play ();
 		Vector3 partPos = transform.position; partPos.y += 0.5f;
 		Instantiate (deathParticle, partPos, transform.rotation);
+		Destroy (transform.gameObject);
+	}
+
+	private void Destroy()
+	{
 		Destroy (transform.gameObject);
 	}
 
@@ -93,6 +98,21 @@ public class EnemyScript : MonoBehaviour {
 			else{
 				anim.speed = inBeamSpeed; //Slow down a bit
 				moveSpeed = inBeamSpeed;
+			}
+		}
+			
+		if(c.gameObject.CompareTag("Enemy"))
+		{
+			Destroy();
+			Debug.Log("ENEMY INSIDE ENEMY, DESTROYING");
+		}
+
+		if(type == 1)
+		{
+			if(c.gameObject.name == "WallDoor")
+			{
+				Destroy();
+				Debug.Log("CEILING ENEMY HIT DOOR, DESTROYING");
 			}
 		}
 	}

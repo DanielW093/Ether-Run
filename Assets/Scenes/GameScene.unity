@@ -1900,7 +1900,7 @@ MonoBehaviour:
   door: {fileID: 122702, guid: ca7f147be93955848b8c542dcdf0fc3b, type: 2}
   roomSize: 7.49
   maxRooms: 5
-  wallSpawnChance: 60
+  wallSpawnChance: 40
 --- !u!1 &773209588
 GameObject:
   m_ObjectHideFlags: 0

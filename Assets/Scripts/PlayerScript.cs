@@ -287,7 +287,7 @@ public class PlayerScript : MonoBehaviour {
 		{
 			if(Application.isMobilePlatform)
 				Handheld.Vibrate();
-			c.gameObject.GetComponent<EnemyScript>().Destroy ();
+			c.gameObject.GetComponent<EnemyScript>().Kill ();
 			health--;
 			Debug.Log (health);
 		}

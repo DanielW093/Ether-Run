@@ -43,7 +43,7 @@ public class EnemySpawning : MonoBehaviour {
 					{
 		                int rand = Random.Range(0, 11);
 
-						if(rand >= 0 && rand < 7)
+						if(rand >= 0 && rand < 6)
 						{
 							enemies[i] = (GameObject)Instantiate (ethereal,spawnPos, Quaternion.identity);
 						}
@@ -67,7 +67,7 @@ public class EnemySpawning : MonoBehaviour {
 		for(int i = 0; i < enemies.Length; i++)
 		{
 			if(enemies[i] != null)
-				enemies[i].GetComponent<EnemyScript>().Destroy ();
+				enemies[i].GetComponent<EnemyScript>().Kill ();
 		}
 	}
 }
